@@ -9,6 +9,7 @@ This is a Python-based implementation of the game "Odds". In this game, two play
 - Python: The game logic and networking is implemented in Python.
 - Pygame: Pygame is used for the graphical user interface of the game.
 - Socket: Python's built-in socket library is used for networking to allow the game to be played over a network.
+- Pickle: Python's built-in pickle module is used for serializing and deserializing Python object structures. It's used in this project to send game data over the network between the server and the client.
 
 ## How to Play
 1. Run the server script on a machine. Ensure the server variable is set to a local ip address.
