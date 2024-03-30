@@ -14,6 +14,7 @@ except error as e:
 s.listen(2)
 print("Waiting for a connection, Server Started")
 games = dict()
+connected = set()
 idCount = 0
 
 

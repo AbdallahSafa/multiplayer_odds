@@ -33,10 +33,17 @@ class Game:
         #     self.odds = 0
 
     def whoisChallenger(self, data):
-        if data == "challenger0":
+        if data == "challenger0" and not self.p1Challenger:
             self.p0Challenger = True
-        elif data == "challenger1":
+        elif data == "challenger1" and not self.p0Challenger:
             self.p1Challenger = True
+
+        if data == "challenger0":
+            self.p0Went = True
+        else:
+            self.p1Went = True
+
+
 
 
     def connected(self):

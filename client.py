@@ -1,7 +1,6 @@
 import pygame
 from network import Network
 pygame.font.init()
-import pickle
 
 width = 700
 height = 500
@@ -37,23 +36,28 @@ def menuScreen():
     run = True
     n = Network()
     player = int(n.getP())
-    print("You are player", player)
+
 
     clock = pygame.time.Clock()
-    game = n.send("get")
     btn = Button("DARE", 275, 200, "#fff47c")
     while run:
+        clock.tick(60)
+        try:
+            game = n.send("get")
+        except:
+            run = False
+            print("Couldn't get game")
+            break
+
         bg = pygame.image.load("menuDice.jpg")
         win.blit(bg, (0, 0))
         font = pygame.font.Font("Minecraftia.ttf", 100)
         text = font.render("ODDS",True,"#fff47c")
         rect = text.get_rect(center=(350, 100))
         win.blit(text,rect)
-
         clock.tick(60)
         btn.draw(win)
         pygame.display.update()
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -63,18 +67,28 @@ def menuScreen():
                     if player == 0:
                         if not game.p0Went:
                             game = n.send("challenger0")
-                            run = False
+                        run = False
                     elif player == 1:
                         if not game.p1Went:
                             game = n.send("challenger1")
-                            run = False
-    print(game.p0Challenger)
-    print(game.p1Challenger)
-    main()
+                        run = False
+    while True:
+        clock.tick(60)
+        try:
+            game = n.send("get")
+        except:
+            run = False
+            print("Couldn't get game")
+            break
+        stake(n,player,game)
 
 
-def main():
-    pygame.quit()
+def stake(n, player, game):
+    print("entered stake")
+    print("you are player", player)
+    if game.bothWent():
+        print("bothWent")
+
 
 
 menuScreen()
