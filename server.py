@@ -31,10 +31,15 @@ def threaded_client(conn, p, gameID):
                 else:
                     if data == "reset":
                         game.resetWent()
+                    elif data == "challenger0" or data == "challenger1":
+                        print("entered")
+                        game.whoisChallenger(data)
                     elif data != "get":
+                        print(data, "?")
                         game.play(p, data)
                     reply = game
                     conn.sendall(pickle.dumps(reply))
+                    print("worked")
             else:
                 break
         except:

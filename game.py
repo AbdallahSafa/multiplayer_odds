@@ -1,3 +1,4 @@
+
 class Game:
     def __init__(self,id):
         self.p0Went = False
@@ -30,6 +31,13 @@ class Game:
         # if not accepted:
         #     self.dare = ""
         #     self.odds = 0
+
+    def whoisChallenger(self, data):
+        if data == "challenger0":
+            self.p0Challenger = True
+        elif data == "challenger1":
+            self.p1Challenger = True
+
 
     def connected(self):
         return self.ready
