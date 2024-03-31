@@ -21,6 +21,13 @@ class Game:
         self.odds = odds
         self.accepted = True
 
+    def setGuess(self,player,guess):
+        int(guess)
+        int(player)
+        if player == 0:
+            self.p0Guess = guess
+        else:
+            self.p1Guess = guess
     def setDare(self,dare):
         self.dare = dare
 

@@ -39,6 +39,10 @@ def threaded_client(conn, p, gameID):
                         game.setDare(data[:-1])
                     elif data[-1] == 'O':
                         game.setOdds(data[:-1])
+                    elif data[-1] == 'G':
+                        print(data[0])
+                        print(data[1:-1])
+                        game.setGuess(data[0], data[1:-1])
                     elif data != "get":
                         game.play(p, data)
                     reply = game
