@@ -20,17 +20,9 @@ class Game:
         self.dare = dare
         self.odds = odds
         self.accepted = True
-        if challenger == True and player == 0:
-            self.p0Challenger = True
-            self.p0Went = True
-        elif challenger == True and player == 1:
-            self.p1Challenger = True
-            self.p1Went = True
 
-        #implement later
-        # if not accepted:
-        #     self.dare = ""
-        #     self.odds = 0
+    def setDare(self,dare):
+        self.dare = dare
 
     def whoisChallenger(self, data):
         if data == "challenger0" and not self.p1Challenger:
@@ -42,8 +34,6 @@ class Game:
             self.p0Went = True
         else:
             self.p1Went = True
-
-
 
 
     def connected(self):

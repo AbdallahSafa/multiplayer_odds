@@ -35,12 +35,12 @@ def threaded_client(conn, p, gameID):
                     elif data == "challenger0" or data == "challenger1":
                         print("entered")
                         game.whoisChallenger(data)
+                    elif data[-1] == 'D':
+                        game.setDare(data[:-1])
                     elif data != "get":
-                        print(data, "?")
                         game.play(p, data)
                     reply = game
                     conn.sendall(pickle.dumps(reply))
-                    print("worked")
             else:
                 break
         except:

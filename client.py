@@ -72,7 +72,15 @@ def menuScreen():
                         if not game.p1Went:
                             game = n.send("challenger1")
                         run = False
-    while True:
+    dare(n, player)
+    odds(n, player)
+
+
+def dare(n, player):
+    run = True
+    clock = pygame.time.Clock()
+    dare = ""
+    while run:
         clock.tick(60)
         try:
             game = n.send("get")
@@ -80,15 +88,54 @@ def menuScreen():
             run = False
             print("Couldn't get game")
             break
-        stake(n,player,game)
+        bg = pygame.image.load("gameBackground.jpg")
+        win.blit(bg, (0, 0))
+
+        #challengerScreen
+        if game.bothWent() and ((player == 0 and game.p0Challenger) or (player == 1 and game.p1Challenger)):
+            #Need to have a text box
+            font = pygame.font.Font("Minecraftia.ttf", 40)
+            text = font.render("Enter your dare:", True, "#911300")
+            rect = text.get_rect(center=(350, 100))
+            win.blit(text, rect)
+            for event in pygame.event.get():
+                #cannot hold down buttons :( need to fix
+                if event.type == pygame.QUIT:
+                    run = False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        dare = dare[:-1]
+
+                    elif event.key == pygame.K_RETURN:
+                        game = n.send(dare + "D")
+                        run = False
+                    else:
+                        dare += event.unicode
+            font = pygame.font.Font("Minecraftia.ttf", 30)
+            text = font.render(dare, True, "#ae8fff")
+            rect = text.get_rect(center=(350, 250))
+            win.blit(text, rect)
+        #challengedScreen
+        elif game.bothWent():
+            font = pygame.font.Font("Minecraftia.ttf", 40)
+            text = font.render("Waiting for dare...", True, "#911300")
+            rect = text.get_rect(center=(350, 100))
+            win.blit(text, rect)
+            if game.dare != "":
+                run = False
+        pygame.display.update()
+
+def odds(n,player):
+    run = True
+    i = 0
+    while run:
+        win.fill("#123050")
+        pygame.display.update()
 
 
-def stake(n, player, game):
-    print("entered stake")
-    print("you are player", player)
-    if game.bothWent():
-        print("bothWent")
-
-
+# font = pygame.font.Font("Minecraftia.ttf", 30)
+# text = font.render(game.dare, True, "#ae8fff")
+# rect = text.get_rect(center=(350, 300))
+# win.blit(text, rect)
 
 menuScreen()
