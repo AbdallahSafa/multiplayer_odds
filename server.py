@@ -37,6 +37,8 @@ def threaded_client(conn, p, gameID):
                         game.whoisChallenger(data)
                     elif data[-1] == 'D':
                         game.setDare(data[:-1])
+                    elif data[-1] == 'O':
+                        game.setOdds(data[:-1])
                     elif data != "get":
                         game.play(p, data)
                     reply = game

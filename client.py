@@ -74,6 +74,7 @@ def menuScreen():
                         run = False
     dare(n, player)
     odds(n, player)
+    guess(n, player)
 
 
 def dare(n, player):
@@ -128,14 +129,59 @@ def dare(n, player):
 def odds(n,player):
     run = True
     i = 0
+    clock = pygame.time.Clock()
+    odds = ""
     while run:
-        win.fill("#123050")
+        clock.tick(60)
+        try:
+            game = n.send("get")
+        except:
+            run = False
+            print("Couldn't get game")
+            break
+        bg = pygame.image.load("gameBackground.jpg")
+        win.blit(bg, (0, 0))
+        #challenger screen
+        if game.bothWent() and ((player == 0 and game.p0Challenger) or (player == 1 and game.p1Challenger)):
+            font = pygame.font.Font("Minecraftia.ttf", 40)
+            text = font.render("Waiting for odds...", True, "#911300")
+            rect = text.get_rect(center=(350, 100))
+            win.blit(text, rect)
+            if game.odds != 0:
+                run = False
+        #challenged screen
+        else:
+            font2 = pygame.font.Font("Minecraftia.ttf", 40)
+            text2 = font2.render("odds to ...  " + game.dare, True, "#ae8fff")
+            rect2 = text2.get_rect(center=(350, 100))
+            font = pygame.font.Font("Minecraftia.ttf", 30)
+            text = font.render("Enter your desired odds:", True, "#911300")
+            rect = text.get_rect(center=(350, 175))
+            win.blit(text2, rect2)
+            win.blit(text, rect)
+            for event in pygame.event.get():
+                #cannot hold down buttons :( need to fix
+                if event.type == pygame.QUIT:
+                    run = False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        odds = odds[:-1]
+                    elif event.key == pygame.K_RETURN:
+                        game = n.send(odds + "O")
+                        run = False
+                    else:
+                        odds += event.unicode
+            font = pygame.font.Font("Minecraftia.ttf", 30)
+            text = font.render(odds, True, "#ae8fff")
+            rect = text.get_rect(center=(350, 250))
+            win.blit(text, rect)
         pygame.display.update()
 
 
-# font = pygame.font.Font("Minecraftia.ttf", 30)
-# text = font.render(game.dare, True, "#ae8fff")
-# rect = text.get_rect(center=(350, 300))
-# win.blit(text, rect)
+def guess(n,player):
+    run = True
+    i = 0
+    while run:
+        i += 1
 
 menuScreen()

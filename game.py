@@ -24,6 +24,10 @@ class Game:
     def setDare(self,dare):
         self.dare = dare
 
+    def setOdds(self,odds):
+        int(odds)
+        self.odds = odds
+
     def whoisChallenger(self, data):
         if data == "challenger0" and not self.p1Challenger:
             self.p0Challenger = True
