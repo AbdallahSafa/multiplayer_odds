@@ -1,7 +1,7 @@
 # Odds Game
 - STILL WIP
 
-<img width="400" alt="image" src="https://github.com/AbdallahSafa/multiplayer_odds/assets/95765787/83224d85-27be-4589-88dc-d3811a45e41a">
+<img width="699" alt="image" src="https://github.com/AbdallahSafa/multiplayer_odds/assets/95765787/83224d85-27be-4589-88dc-d3811a45e41a">
 <img width="400" alt="image" src="https://github.com/AbdallahSafa/multiplayer_odds/assets/95765787/9a94f9f8-dae3-4410-8cb8-2bcaf3818c80">
 <img width="400" alt="image" src="https://github.com/AbdallahSafa/multiplayer_odds/assets/95765787/205521ca-ca6f-472d-bed6-b0e810f23298">
 
