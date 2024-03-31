@@ -2,6 +2,8 @@
 - STILL WIP
 
 <img width="699" alt="image" src="https://github.com/AbdallahSafa/multiplayer_odds/assets/95765787/83224d85-27be-4589-88dc-d3811a45e41a">
+<img width="697" alt="image" src="https://github.com/AbdallahSafa/multiplayer_odds/assets/95765787/9a94f9f8-dae3-4410-8cb8-2bcaf3818c80">
+<img width="699" alt="image" src="https://github.com/AbdallahSafa/multiplayer_odds/assets/95765787/205521ca-ca6f-472d-bed6-b0e810f23298">
 
 ## Description
 This is a Python-based implementation of the game "Odds". In this game, two players challenge each other to perform a dare, with the odds of having to do the dare themselves being agreed upon. The players then type a number within the agreed range. If they typed the same number, the player who was issued the challenge has to do the dare.
