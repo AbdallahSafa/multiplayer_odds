@@ -9,7 +9,6 @@ class Game:
         self.p0Challenger = False
         self.p1Challenger = False
         self.odds = 0
-        self.accepted = False
         self.p1Guess = 0
         self.p0Guess = 0
 
@@ -23,11 +22,13 @@ class Game:
 
     def setGuess(self,player,guess):
         int(guess)
-        int(player)
-        if player == 0:
+        if player == '0':
             self.p0Guess = guess
+            self.p0Went = False
         else:
             self.p1Guess = guess
+            self.p1Went = False
+
     def setDare(self,dare):
         self.dare = dare
 
@@ -35,12 +36,12 @@ class Game:
         int(odds)
         self.odds = odds
 
+
     def whoisChallenger(self, data):
         if data == "challenger0" and not self.p1Challenger:
             self.p0Challenger = True
         elif data == "challenger1" and not self.p0Challenger:
             self.p1Challenger = True
-
         if data == "challenger0":
             self.p0Went = True
         else:
@@ -66,6 +67,5 @@ class Game:
         self.p1Went = False
         self.dare = ""
         self.odds = 0
-        self.accepted = False
         self.p1Guess = 0
         self.p0Guess = 0

@@ -75,7 +75,9 @@ def menuScreen():
     dare(n, player)
     odds(n, player)
     guess(n, player)
-    winner(n,player)
+    winner(n, player)
+    playAgain(n,player)
+
 
 
 def dare(n, player):
@@ -98,6 +100,7 @@ def dare(n, player):
             #Need to have a text box
             font = pygame.font.Font("Minecraftia.ttf", 40)
             text = font.render("Enter your dare:", True, "#911300")
+            #BUG WITH ENTERING AN EMPTY DARE
             rect = text.get_rect(center=(350, 100))
             win.blit(text, rect)
             for event in pygame.event.get():
@@ -152,7 +155,7 @@ def odds(n,player):
                 run = False
         #challenged screen
         else:
-            font2 = pygame.font.Font("Minecraftia.ttf", 40)
+            font2 = pygame.font.Font("Minecraftia.ttf", 30)
             text2 = font2.render("odds to ...  " + game.dare, True, "#ae8fff")
             rect2 = text2.get_rect(center=(350, 100))
             font = pygame.font.Font("Minecraftia.ttf", 30)
@@ -162,7 +165,7 @@ def odds(n,player):
             win.blit(text, rect)
             if invalid:
                 font = pygame.font.Font("Minecraftia.ttf", 30)
-                text = font.render("Not Valid... ", True, "#ae8fff")
+                text = font.render("Not Valid... ", True, "#4d0011")
                 rect = text.get_rect(center=(350, 225))
                 win.blit(text, rect)
             for event in pygame.event.get():
@@ -191,7 +194,6 @@ def odds(n,player):
 
 
 def guess(n,player):
-    print("entered guess")
     run = True
     invalid = False
     clock = pygame.time.Clock()
@@ -241,7 +243,8 @@ def guess(n,player):
                         break
                     else:
                         invalid = False
-                        game = n.send(str(player) + guess + "G")
+                        send = str(player) + guess + "G"
+                        game = n.send(send)
                         run = False
                 else:
                     guess += event.unicode
@@ -253,8 +256,57 @@ def guess(n,player):
 
 def winner(n,player):
     run = True
-    i = 0
+    clock = pygame.time.Clock()
     while run:
+        clock.tick(60)
+        try:
+            game = n.send("get")
+        except:
+            run = False
+            print("Couldn't get game")
+            break
+        bg = pygame.image.load("gameBackground.jpg")
+        win.blit(bg, (0, 0))
+        font = pygame.font.Font("Minecraftia.ttf", 40)
+        text = font.render("Odds were set to " + str(game.odds), True, "#911300")
+        rect = text.get_rect(center=(350, 100))
+        win.blit(text, rect)
+        #below code can be shortened
+        # #guesses matched
+        # LOGIC SHOULD BE REDONE BOTH MUST BE FALSE TO CHECK IF THEY BOTH WENT NEED TO RESET BOTHWENT IN BETWEEN
+        #FUNC CALLS
+        if game.p1Guess == game.p0Guess and (not game.p1Went and not game.p0Went):
+            #challenger screen
+            if (player == 0 and game.p0Challenger) or (player == 1 and game.p1Challenger):
+                font = pygame.font.Font("Minecraftia.ttf", 20)
+                text = font.render("SUCCESS! they also guessed " + game.p1Guess, True, "#911300")
+                rect = text.get_rect(center=(350, 200))
+                win.blit(text, rect)
+            #challengee screen
+            else:
+                font = pygame.font.Font("Minecraftia.ttf", 25)
+                text = font.render("You have to ... " + game.dare, True, "#911300")
+                rect = text.get_rect(center=(350, 200))
+                win.blit(text, rect)
+            run = False
+        elif not game.p1Went and not game.p0Went:
+            font = pygame.font.Font("Minecraftia.ttf", 25)
+            rect = text.get_rect(center=(350, 200))
+            if player == 0:
+                text = font.render("Nothing happens they said " + game.p1Guess , True, "#911300")
+                win.blit(text, rect)
+            elif player == 1:
+                text = font.render(" Nothing happens they said " + game.p0Guess, True, "#911300")
+                win.blit(text, rect)
+            run = False
+        pygame.display.update()
+
+
+
+def playAgain(player,n):
+    #implement game resetting and play again functionality
+    i = 0
+    while True:
         i += 1
 
 menuScreen()

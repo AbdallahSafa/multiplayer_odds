@@ -33,15 +33,12 @@ def threaded_client(conn, p, gameID):
                     if data == "reset":
                         game.resetWent()
                     elif data == "challenger0" or data == "challenger1":
-                        print("entered")
                         game.whoisChallenger(data)
                     elif data[-1] == 'D':
                         game.setDare(data[:-1])
                     elif data[-1] == 'O':
                         game.setOdds(data[:-1])
                     elif data[-1] == 'G':
-                        print(data[0])
-                        print(data[1:-1])
                         game.setGuess(data[0], data[1:-1])
                     elif data != "get":
                         game.play(p, data)
